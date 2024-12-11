@@ -121,8 +121,6 @@ function auto_search($dt){
 
 // define a table
 let table = new DataTable('#packageList', {
-    
-    autoWidth: false,
     // get the json file
     "ajax" : {
         "url": "../assets/package-infos.json",
@@ -141,20 +139,18 @@ let table = new DataTable('#packageList', {
             class: 'dt-control',
             orderable: false,
             data: null,
-            defaultContent: '',
-            width: '5%'
+            defaultContent: ''
         },
-        { "data" : "PackageName", width: '15%'},
-        { "data" : "Version", width: '10%'},
+        { "data" : "PackageName"},
+        { "data" : "Version", width: '7em'},
         { "data" : "Date",
            render: function (data, type, row) {
                        return convertDateFormat(data)
-                   },
-         width: '20%'
+                   }
         },
         // the following column is set to invisible and only there so the search picks up the additional text as well
         { data: null, render: (data, type, row) => format(data), visible: false},
-        { "data" : "Subtitle", width: '50%'},
+        { "data" : "Subtitle"},
     ],
     // change the text for the search function to make it distinct to the page search function
     language: {
