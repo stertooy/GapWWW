@@ -144,16 +144,17 @@ let table = new DataTable('#packageList', {
             defaultContent: '',
             width: '5%'
         },
-        { "data" : "PackageName"},
-        { "data" : "Version", width: '7em'},
+        { "data" : "PackageName", width: '15%'},
+        { "data" : "Version", width: '10%'},
         { "data" : "Date",
            render: function (data, type, row) {
                        return convertDateFormat(data)
-                   }
+                   },
+         width: '20%'
         },
         // the following column is set to invisible and only there so the search picks up the additional text as well
         { data: null, render: (data, type, row) => format(data), visible: false},
-        { "data" : "Subtitle"},
+        { "data" : "Subtitle", width: '50%'},
     ],
     // change the text for the search function to make it distinct to the page search function
     language: {
