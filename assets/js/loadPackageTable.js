@@ -143,7 +143,7 @@ let table = new DataTable('#packageList', {
         },
         { "data" : "PackageName"},
         { "data" : "Version", width: '7em'},
-        { "data" : "Date",
+        { "data" : "Date", width: '7em',
            render: function (data, type, row) {
                        return convertDateFormat(data)
                    }
