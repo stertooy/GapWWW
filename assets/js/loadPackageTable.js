@@ -121,6 +121,8 @@ function auto_search($dt){
 
 // define a table
 let table = new DataTable('#packageList', {
+    
+    autoWidth: false,
     // get the json file
     "ajax" : {
         "url": "../assets/package-infos.json",
