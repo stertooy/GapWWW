@@ -139,7 +139,8 @@ let table = new DataTable('#packageList', {
             class: 'dt-control',
             orderable: false,
             data: null,
-            defaultContent: ''
+            defaultContent: '',
+            width: '5%'
         },
         { "data" : "PackageName"},
         { "data" : "Version", width: '7em'},
