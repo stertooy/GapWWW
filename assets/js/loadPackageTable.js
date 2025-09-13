@@ -119,6 +119,12 @@ function auto_search($dt){
     }
 }
 
+
+$(function(){
+
+    // clear tbl
+    $('#packagesList').html('');
+
 // define a table
 let table = new DataTable('#packageList', {
     // get the json file
@@ -177,4 +183,6 @@ table.on('click', 'td.dt-control', function (e) {
         // Open this row
         row.child(format(row.data())).show();
     }
+});
+
 });
