@@ -37,7 +37,7 @@ Note that newer versions might be available on the package websites.
 {% endfor -%}
 |=
 |   | Name | Version | Date | | Subtitle |
-{: id="packageList" class="display js-only"}
+{: id="packageList" class="display hide-no-js"}
 
 <script>
 $(function() {
