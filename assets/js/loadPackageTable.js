@@ -103,6 +103,7 @@ DataTable.render.datetime('YYYY-MM-DD');
 
 // pre-fill search field and sync with URL
 function auto_search($dt){
+    alert("hi!");
     var $api = $dt.api();
  
     // Set the search text in the URL hash whenever a search is executed
