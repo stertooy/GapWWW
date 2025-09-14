@@ -28,7 +28,6 @@ Note that newer versions might be available on the package websites.
 {: id="packageList-no-js" class="display"}
 
 | | Name | Version | Date | | Subtitle |
-|-
 |=
 | | Name | Version | Date | | Subtitle |
 {: id="packageList" class="display" style="display:none"}
