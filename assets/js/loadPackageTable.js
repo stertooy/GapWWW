@@ -123,7 +123,7 @@ function auto_search($dt){
 $(function(){
 
     // clear tbl
-    $('#packagesList').html('');
+    $('#packageList').html('');
 
 // define a table
 let table = new DataTable('#packageList', {
