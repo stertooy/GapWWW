@@ -158,6 +158,8 @@ let table = new DataTable('#packageList', {
     },
     searchHighlight: true,
     initComplete: function( settings, json ) {
+        $('#packageList-no-js').hide();
+        $('#packageList').show();
         auto_search(this);
     },
     // set default number of packages shown
