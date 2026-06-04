@@ -228,13 +228,14 @@ for github_release in github_releases:
     print(f"Is prerelease: {is_prerelease}")
     try:
         # if the github_release is already stored locally, correctly set the
-        # "isLatest" value.
+        # "isLatest" and "isPrerelease" values.
         i, release_to_store = next(
             (i, release)
             for i, release in enumerate(stored_releases)
             if release["tagName"] == tag
         )
         releases_to_store[i]["isLatest"] = is_latest
+        releases_to_store[i]["isPrerelease"] = is_prerelease
         print(releases_to_store[i])
     except StopIteration:
         # if the github release is not stored locally, format and store it
