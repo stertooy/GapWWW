@@ -220,12 +220,9 @@ with open(f"{pwd}/releases.json", "r", encoding="utf-8") as f:
 releases_to_store = stored_releases
 
 for github_release in github_releases:
-    print("Next release")
-    print(github_release)
     tag = github_release.tag_name
     is_latest = github_release == latest_release
     is_prerelease = github_release.prerelease
-    print(f"Is prerelease: {is_prerelease}")
     try:
         # if the github_release is already stored locally, correctly set the
         # "isLatest" and "isPrerelease" values.
@@ -236,7 +233,6 @@ for github_release in github_releases:
         )
         releases_to_store[i]["isLatest"] = is_latest
         releases_to_store[i]["isPrerelease"] = is_prerelease
-        print(releases_to_store[i])
     except StopIteration:
         # if the github release is not stored locally, format and store it
         release_to_store = formatted_release(github_release, is_latest)
