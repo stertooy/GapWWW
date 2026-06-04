@@ -223,6 +223,7 @@ for github_release in github_releases:
     tag = github_release.tag_name
     is_latest = github_release == latest_release
     is_prerelease = github_release.prerelease
+    
     try:
         # if the github_release is already stored locally, correctly set the
         # "isLatest" and "isPrerelease" values.
