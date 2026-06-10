@@ -7,8 +7,6 @@ parent: Documentation
 This is an updated GAP 4 version of a GAP 3 example by [Martin Schönert](https://www.math.rwth-aachen.de/~Martin.Schoenert/), 1993. An almost classical permutation group of small degree is examined with some elementary GAP commands.
 The output given here has been produced by GAP 4.16.0, the input is available in form of a plain GAP 4 [input file](rubik.in).<!-- TODO -->
 
-<hr>
-
 <p style="text-align: right"><i>
 Ideal Toy Company stated on the package of<br />
 the original Rubik cube that there were more than<br />
