@@ -1,11 +1,11 @@
 ---
-title: Analyzing Rubik's Cube
+title: Rubik's Cube Example
 layout: default_with_title
 parent: Documentation
 ---
 
-This is an updated GAP 4 version of a GAP 3 example by Martin Schönert, 1993. An almost classical permutation group of small degree is examined with some elementary GAP commands.
-The output given here has been produced by GAP 4.16.0, the input is available in form of a plain GAP 4 input file.<!-- TODO -->
+This is an updated GAP 4 version of a GAP 3 example by [Martin Schönert](https://www.math.rwth-aachen.de/~Martin.Schoenert/), 1993. An almost classical permutation group of small degree is examined with some elementary GAP commands.
+The output given here has been produced by GAP 4.16.0, the input is available in form of a plain GAP 4 [input file](rubik.in).<!-- TODO -->
 
 <hr>
 
