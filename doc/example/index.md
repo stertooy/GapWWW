@@ -9,10 +9,11 @@ The output given here has been produced by GAP 4.16.0, the input is available in
 
 <hr>
 
-<p style="text-align: right"><i>Ideal Toy Company stated on the package of
-the original Rubik cube that there were more than
-three billion possible states the cube could attain.
-It's analogous to Mac Donald's proudly announcing
+<p style="text-align: right"><i>
+Ideal Toy Company stated on the package of<br />
+the original Rubik cube that there were more than<br />
+three billion possible states the cube could attain.<br />
+It's analogous to Mac Donald's proudly announcing<br />
 that they've sold more than 120 hamburgers.</i><br />
 (J. A. Paulos, Innumeracy)</p>
 
