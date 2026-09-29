@@ -18,12 +18,12 @@ hamburgers.<br />
 
 We consider the group of transformations of Rubik's magic cube. If we number the faces of this cube as follows
 
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480" width="100%" role="img" aria-labelledby="cube-net-title cube-net-desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480" width="60%" role="img" aria-labelledby="cube-net-title cube-net-desc">
   <title id="cube-net-title">Numbered faces of a Rubik's cube</title>
-  <g fill="white" stroke="#333" stroke-width="2">
+  <g fill="none" stroke="currentColor" stroke-width="2">
     <path d="M176 24h144v144H176z M32 168h144v144H32z M176 168h144v144H176z M320 168h144v144H320z M464 168h144v144H464z M176 312h144v144H176z"/>
   </g>
-  <g fill="none" stroke="#777" stroke-width="1">
+  <g fill="none" stroke="currentColor" stroke-width="1" opacity="0.5">
     <path d="M224 24v144 M272 24v144 M176 72h144 M176 120h144
              M80 168v144 M128 168v144 M224 168v144 M272 168v144
              M368 168v144 M416 168v144 M512 168v144 M560 168v144
@@ -31,7 +31,7 @@ We consider the group of transformations of Rubik's magic cube. If we number the
              M320 216h144 M320 264h144 M464 216h144 M464 264h144
              M224 312v144 M272 312v144 M176 360h144 M176 408h144"/>
   </g>
-  <g fill="#111" font-family="sans-serif" font-size="14" text-anchor="middle" dominant-baseline="middle">
+  <g fill="currentColor" font-family="sans-serif" font-size="14" text-anchor="middle" dominant-baseline="middle">
     <text x="200" y="48">1</text><text x="248" y="48">2</text><text x="296" y="48">3</text>
     <text x="200" y="96">4</text><text x="248" y="96">top</text><text x="296" y="96">5</text>
     <text x="200" y="144">6</text><text x="248" y="144">7</text><text x="296" y="144">8</text>
