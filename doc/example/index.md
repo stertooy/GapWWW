@@ -67,7 +67,7 @@ gap> orbits := Orbits( cube, [1..48] );
 The first orbit contains the points at the corners, the second those at the edges; clearly the group cannot move a point at a corner onto a point at an edge.
 
 So to investigate the cube group we first investigate the operation on the corner points.
-Note that the constructed group that describes this operation will operate on the set `[1..24]`{:.gap-repl},
+Note that the constructed group that describes this operation will operate on the set `[1..24]`{:.gap-repl .highlight},
 not on the original set `[1,3,17,14,8,38,9,41,19,48,22,6,30,33,43,11,46,40,24,27,25,35,16,32]`{:.gap-repl}.
 ```gap-repl
 gap> cube1 := Action( cube, orbits[1] );
