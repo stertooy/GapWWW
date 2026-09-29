@@ -67,8 +67,8 @@ gap> orbits := Orbits( cube, [1..48] );
 The first orbit contains the points at the corners, the second those at the edges; clearly the group cannot move a point at a corner onto a point at an edge.
 
 So to investigate the cube group we first investigate the operation on the corner points.
-Note that the constructed group that describes this operation will operate on the set `[1..24]`{:.language-gap-repl},
-not on the original set `[1,3,17,14,8,38,9,41,19,48,22,6,30,33,43,11,46,40,24,27,25,35,16,32]`{:.gap-repl}.
+Note that the constructed group that describes this operation will operate on the set `[1..24]`{:.language-gap-repl .language-mermaid},
+not on the original set `[1,3,17,14,8,38,9,41,19,48,22,6,30,33,43,11,46,40,24,27,25,35,16,32]`{:.language-gap-repl .language-mermaid}.
 ```gap-repl
 gap> cube1 := Action( cube, orbits[1] );
 <permutation group with 6 generators>
@@ -104,7 +104,7 @@ gap> IsNaturalSymmetricGroup(cube1b);
 true
 ```
 The next thing then is to investigate the kernel of this operation on blocks,
-i.e., the subgroup of `cube1`{:.gap-repl} of those elements that fix the blocks setwise.
+i.e., the subgroup of `cube1`{:.language-gap-repl .language-mermaid} of those elements that fix the blocks setwise.
 ```gap-repl
 gap> Factors( Size( Kernel( blockhom1 ) ) );
 [ 3, 3, 3, 3, 3, 3, 3 ]
@@ -112,7 +112,7 @@ gap> IsElementaryAbelian( Kernel( blockhom1 ) );
 true
 ```
 We can show that the product of this elementary abelian group $3^7$ with the $S_8$ is semidirect by finding a complement,
-i.e., a subgroup that has trivial intersection with the kernel and that generates `cube1`{:.gap-repl} together with the kernel.
+i.e., a subgroup that has trivial intersection with the kernel and that generates `cube1`{:.language-gap-repl .language-mermaid} together with the kernel.
 ```gap-repl
 gap> cmpl1 := ComplementClassesRepresentatives( cube1, Kernel( blockhom1 ) );
 [ <permutation group of size 40320 with 7 generators> ]
@@ -125,14 +125,14 @@ gap> Size( Intersection( cmpl1, Kernel( blockhom1 ) ) );
 gap> ClosureGroup( cmpl1, Kernel( blockhom1 ) ) = cube1;
 true
 ```
-There is even a more elegant way to show that `cmpl1`{:.gap-repl} is a complement.
+There is even a more elegant way to show that `cmpl1`{:.language-gap-repl .language-mermaid} is a complement.
 ```gap-repl
 gap> IsBijective( RestrictedMapping( blockhom1, cmpl1 ) );
 true
 ```
-Of course, theoretically it is clear that `cmpl1`{:.gap-repl} must indeed be a complement.
+Of course, theoretically it is clear that `cmpl1`{:.language-gap-repl .language-mermaid} must indeed be a complement.
 
-In fact we know that `cube1`{:.gap-repl} is a subgroup of index 3 in the wreath product of a cyclic 3 with $S_8$.
+In fact we know that `cube1`{:.language-gap-repl .language-mermaid} is a subgroup of index 3 in the wreath product of a cyclic 3 with $S_8$.
 This missing index 3 tells us that we do not have total freedom in turning the corners.
 The following tests show that whenever we turn one corner clockwise we must turn another corner counterclockwise.
 ```gap-repl
@@ -175,9 +175,9 @@ false
 gap> (1,11)(2,17) in cube2;
 true
 ```
-Since `cube1`{:.gap-repl} and `cube2`{:.gap-repl} are the groups describing the actions on the two orbits of `cube`{:.gap-repl},
-it is clear that `cube`{:.gap-repl} is a subdirect product of those groups, i.e., a subgroup of the direct product.
-Comparing the sizes of `cube1`{:.gap-repl}, `cube2`{:.gap-repl}, and `cube`{:.gap-repl} we see that `cube`{:.gap-repl} must be a subgroup of index 2 in the direct product of those two groups.
+Since `cube1`{:.language-gap-repl .language-mermaid} and `cube2`{:.language-gap-repl .language-mermaid} are the groups describing the actions on the two orbits of `cube`{:.language-gap-repl .language-mermaid},
+it is clear that `cube`{:.language-gap-repl .language-mermaid} is a subdirect product of those groups, i.e., a subgroup of the direct product.
+Comparing the sizes of `cube1`{:.language-gap-repl .language-mermaid}, `cube2`{:.language-gap-repl .language-mermaid}, and `cube`{:.language-gap-repl .language-mermaid} we see that `cube`{:.language-gap-repl .language-mermaid} must be a subgroup of index 2 in the direct product of those two groups.
 
 ```gap-repl
 gap> Size( cube );
