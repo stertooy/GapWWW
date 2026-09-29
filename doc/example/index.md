@@ -4,15 +4,16 @@ layout: default_with_title
 parent: Documentation
 ---
 
-This is an updated GAP 4 version of a GAP 3 example by [Martin Schönert](https://www.math.rwth-aachen.de/~Martin.Schoenert/), 1993. An almost classical permutation group of small degree is examined with some elementary GAP commands.
+This is an updated GAP 4 version of a GAP 3 example by [Martin Schönert](https://www.math.rwth-aachen.de/~Martin.Schoenert/), 1993.
+An almost classical permutation group of small degree is examined with some elementary GAP commands.
 The output given here has been produced by GAP 4.16.0, the input is available in form of a plain GAP 4 [input file](rubik.in).
 
-<p style="text-align: right; padding-left: 60%; font-style: italic">
+<p style="text-align: right; padding-left: 65%; font-style: italic">
 Ideal Toy Company stated on the package of the original Rubik cube that there
 were more than three billion possible states the cube could attain. It's
 analogous to Mac Donald's proudly announcing that they've sold more than 120
 hamburgers.<br />
-(J. A. Paulos, Innumeracy)
+<span style="font-style: normal">(J. A. Paulos, Innumeracy)</span>
 </p>
 
 We consider the group of transformations of Rubik's magic cube. If we number the faces of this cube as follows
@@ -66,8 +67,8 @@ gap> orbits := Orbits( cube, [1..48] );
 The first orbit contains the points at the corners, the second those at the edges; clearly the group cannot move a point at a corner onto a point at an edge.
 
 So to investigate the cube group we first investigate the operation on the corner points.
-Note that the constructed group that describes this operation will operate on the set `[1..24]`,
-not on the original set `[1,3,17,14,8,38,9,41,19,48,22,6,30,33,43,11,46,40,24,27,25,35,16,32]`.
+Note that the constructed group that describes this operation will operate on the set `[1..24]`{:.gap-repl},
+not on the original set `[1,3,17,14,8,38,9,41,19,48,22,6,30,33,43,11,46,40,24,27,25,35,16,32]`{:.gap-repl}.
 ```gap-repl
 gap> cube1 := Action( cube, orbits[1] );
 <permutation group with 6 generators>
@@ -103,7 +104,7 @@ gap> IsNaturalSymmetricGroup(cube1b);
 true
 ```
 The next thing then is to investigate the kernel of this operation on blocks,
-i.e., the subgroup of `cube1` of those elements that fix the blocks setwise.
+i.e., the subgroup of `cube1`{:.gap-repl} of those elements that fix the blocks setwise.
 ```gap-repl
 gap> Factors( Size( Kernel( blockhom1 ) ) );
 [ 3, 3, 3, 3, 3, 3, 3 ]
@@ -111,7 +112,7 @@ gap> IsElementaryAbelian( Kernel( blockhom1 ) );
 true
 ```
 We can show that the product of this elementary abelian group $3^7$ with the $S_8$ is semidirect by finding a complement,
-i.e., a subgroup that has trivial intersection with the kernel and that generates `cube1` together with the kernel.
+i.e., a subgroup that has trivial intersection with the kernel and that generates `cube1`{:.gap-repl} together with the kernel.
 ```gap-repl
 gap> cmpl1 := ComplementClassesRepresentatives( cube1, Kernel( blockhom1 ) );
 [ <permutation group of size 40320 with 7 generators> ]
@@ -124,14 +125,14 @@ gap> Size( Intersection( cmpl1, Kernel( blockhom1 ) ) );
 gap> ClosureGroup( cmpl1, Kernel( blockhom1 ) ) = cube1;
 true
 ```
-There is even a more elegant way to show that `cmpl1` is a complement.
+There is even a more elegant way to show that `cmpl1`{:.gap-repl} is a complement.
 ```gap-repl
 gap> IsBijective( RestrictedMapping( blockhom1, cmpl1 ) );
 true
 ```
-Of course, theoretically it is clear that `cmpl1` must indeed be a complement.
+Of course, theoretically it is clear that `cmpl1`{:.gap-repl} must indeed be a complement.
 
-In fact we know that `cube1` is a subgroup of index 3 in the wreath product of a cyclic 3 with $S_8$.
+In fact we know that `cube1`{:.gap-repl} is a subgroup of index 3 in the wreath product of a cyclic 3 with $S_8$.
 This missing index 3 tells us that we do not have total freedom in turning the corners.
 The following tests show that whenever we turn one corner clockwise we must turn another corner counterclockwise.
 ```gap-repl
@@ -174,9 +175,9 @@ false
 gap> (1,11)(2,17) in cube2;
 true
 ```
-Since `cube1` and `cube2` are the groups describing the actions on the two orbits of `cube`,
-it is clear that `cube` is a subdirect product of those groups, i.e., a subgroup of the direct product.
-Comparing the sizes of `cube1`, `cube2`, and `cube` we see that `cube` must be a subgroup of index 2 in the direct product of those two groups.
+Since `cube1`{:.gap-repl} and `cube2`{:.gap-repl} are the groups describing the actions on the two orbits of `cube`{:.gap-repl},
+it is clear that `cube`{:.gap-repl} is a subdirect product of those groups, i.e., a subgroup of the direct product.
+Comparing the sizes of `cube1`{:.gap-repl}, `cube2`{:.gap-repl}, and `cube`{:.gap-repl} we see that `cube`{:.gap-repl} must be a subgroup of index 2 in the direct product of those two groups.
 
 ```gap-repl
 gap> Size( cube );
