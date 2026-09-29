@@ -190,7 +190,7 @@ gap> cmpl2 := ComplementClassesRepresentatives( cube2, Kernel( blockhom2 ) );
   <permutation group of size 479001600 with 11 generators> ]
 ```
 So there are even 4 classes of complements here.
-This time we get a semidirect product of a $2^11$ with an $S_{12}$,
+This time we get a semidirect product of a $2^{11}$ with an $S_{12}$,
 namely a subgroup of index 2 of the wreath product of a cyclic 2 with $S_{12}$.
 Here the missing index 2 tells us again that we do not have total freedom in turning the edges.
 The following tests show that whenever we flip one edge we must also flip another edge.
