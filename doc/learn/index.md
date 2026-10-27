@@ -1,7 +1,8 @@
 ---
 title: Learning
 layout: default_with_title
-parent: Documentation
+parent: Learning & teaching
+nav_order: 1
 ---
 
   GAP can answer simple questions or be a tool for experts.

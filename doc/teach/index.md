@@ -1,7 +1,8 @@
 ---
 title: Teaching Material
 layout: default_with_title
-parent: Documentation
+parent: Learning & teaching
+nav_order: 3
 ---
 
  See also the page on
