@@ -1,7 +1,7 @@
 ---
 title: Learning
 layout: default_with_title
-parent: Learning & teaching
+parent: Learning & Teaching
 nav_order: 1
 ---
 
@@ -9,7 +9,7 @@ nav_order: 1
   We have collected here links to a variety of materials intended to help
   people learn the language and get what they want from GAP.
   See also the page on
-  [Teaching Material]({{ site.baseurl }}/doc/teach/),
+  [Teaching Material]({{ site.baseurl }}/learn/teach/),
   which refers to material accompanying courses given at various places. 
 
   Some of these materials have been written as stand-alone introductions to

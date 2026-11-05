@@ -21,9 +21,9 @@ nav_order: 5
   - Each GAP package has its individual manual which you can
     access through the list of [packages]({{ site.baseurl }}/packages/).
 
-- ### [Learning & teaching]({{ site.baseurl }}/learning/)
+- ### [Learning & Teaching]({{ site.baseurl }}/learn/)
   Find introductions to GAP, step-by-step tutorials, and material for
-  using GAP in courses in the Learning & teaching section.
+  using GAP in courses in the Learning & Teaching section.
 
 - ### Bibliographies
   - There is a [Google Scholar profile](https://scholar.google.co.uk/citations?user=B2oZOG0AAAAJ)
