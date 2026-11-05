@@ -11,35 +11,44 @@ jobs:
   update:
     runs-on: ubuntu-latest
     env:
-      # Skip slow builds and packages whose system dependencies are omitted.
-      # Add names here; matching ignores case and directory version suffixes.
+      # skip packages that either build slowly, or are guaranteed to fail
       GAP_PACKAGES_TO_SKIP: >-
         cddinterface
         normalizinterface
         semigroups
         xgap
         zeromqinterface
-    steps:
-      - uses: actions/checkout@v7
 
-      - name: "Read the latest GAP release"
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v7
+
+      - name: "Determine latest GAP version"
         id: release
         run: |
           version=$(jq -er '.[] | select(.isLatest) | .tagName' releases.json)
           echo "version=$version" >> "$GITHUB_OUTPUT"
 
-      - uses: gap-actions/setup-gap@v3
+      - name: "Setup latest GAP version"
+        uses: gap-actions/setup-gap@v3
         with:
+          # don't use "latest" input, since that depends on releases.json
+          # having been updated on the LIVE website already
           gap-version: ${{ steps.release.outputs.version }}
 
-      - name: "Install package build dependencies"
+      - name: "Install package dependencies"
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends \
-            autoconf automake libtool pkg-config \
-            libcurl4-openssl-dev libncurses-dev pari-gp
+            autoconf                                      \
+            automake                                      \
+            libcurl4-openssl-dev                          \
+            libncurses-dev                                \
+            libtool                                       \
+            pari-gp                                       \
+            pkg-config
 
-      - name: "Build bundled packages"
+      - name: "Build packages"
         run: |
           cd "$GAPROOT/pkg"
           shopt -s nullglob
@@ -53,35 +62,36 @@ jobs:
             fi
             packages+=("$package")
           done
-          # An empty list would tell BuildPackages.sh to build everything.
-          ((${#packages[@]} > 0))
-          MAKEFLAGS="-j$(nproc)" ../bin/BuildPackages.sh --strict "${packages[@]}"
+          MAKEFLAGS="-j$(nproc)" ../bin/BuildPackages.sh "${packages[@]}"
 
-      - name: "Capture startup output and update the installation page"
+      - name: "Get startup output and update installation page"
         env:
           LC_ALL: C.UTF-8
         run: |
-          "$GAPROOT/gap" -r -l "$GAPROOT" --quitonbreak -c 'quit;' \
-            > "$RUNNER_TEMP/gap-startup.txt"
+          # start and immediately quit GAP
+          gap -r -l "$GAPROOT" -c 'quit;' > "$RUNNER_TEMP/gap-startup.txt"
 
+          # put output in code block and add "gap>" prompt
+          # don't use same file or sed will screw up
           {
             printf '```\n'
             sed 's/\r//g; s/[[:blank:]]*$//' "$RUNNER_TEMP/gap-startup.txt"
             printf 'gap>\n```\n'
-          } > "$RUNNER_TEMP/gap-example.md"
+          } > "$RUNNER_TEMP/gap-startup.md"
 
+          # put output in install/index.md
           start='^<!-- BEGIN GAP STARTUP EXAMPLE -->$'
           end='^<!-- END GAP STARTUP EXAMPLE -->$'
           if ! sed -n "/$start/,/$end/p" install/index.md | grep -q "$end"; then
-            echo "Missing GAP startup example markers in install/index.md" >&2
+            echo "::error:: Cannot find where to place new GAP startup output"
             exit 1
           fi
           sed -Ei "/$start/,/$end/{
-            /$start/r $RUNNER_TEMP/gap-example.md
+            /$start/r $RUNNER_TEMP/gap-startup.md
             /$start|$end/!d
           }" install/index.md
 
-      - name: "Create a pull request"
+      - name: "Create pull request"
         uses: peter-evans/create-pull-request@v8
         with:
           branch: auto/update-gap-startup
@@ -89,9 +99,4 @@ jobs:
           commit-message: Update GAP startup example for ${{ steps.release.outputs.version }}
           title: Update GAP startup example for ${{ steps.release.outputs.version }}
           body: |
-            Capture the startup output of GAP ${{ steps.release.outputs.version }} on `ubuntu-latest`.
-
-            Built the release using `setup-gap` and its bundled packages using
-            `BuildPackages.sh`.
-
-            Excluded packages: `${{ env.GAP_PACKAGES_TO_SKIP }}`.
+            Update the startup output to GAP ${{ steps.release.outputs.version }}.
