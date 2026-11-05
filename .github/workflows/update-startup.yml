@@ -1,0 +1,97 @@
+name: "Update GAP startup example"
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    env:
+      # Skip slow builds and packages whose system dependencies are omitted.
+      # Add names here; matching ignores case and directory version suffixes.
+      GAP_PACKAGES_TO_SKIP: >-
+        cddinterface
+        normalizinterface
+        semigroups
+        xgap
+        zeromqinterface
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: master
+
+      - name: "Read the latest GAP release"
+        id: release
+        run: |
+          version=$(jq -er '.[] | select(.isLatest) | .tagName' releases.json)
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      - uses: gap-actions/setup-gap@v3
+        with:
+          gap-version: ${{ steps.release.outputs.version }}
+
+      - name: "Install package build dependencies"
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            autoconf automake libtool pkg-config \
+            libcurl4-openssl-dev libncurses-dev pari-gp
+
+      - name: "Build bundled packages"
+        run: |
+          cd "$GAPROOT/pkg"
+          shopt -s nullglob
+          skipped=" ${GAP_PACKAGES_TO_SKIP,,} "
+          packages=()
+          for info in */PackageInfo.g; do
+            package=${info%/*}
+            name=${package%%-*}
+            if [[ "$skipped" == *" ${name,,} "* ]]; then
+              continue
+            fi
+            packages+=("$package")
+          done
+          # An empty list would tell BuildPackages.sh to build everything.
+          ((${#packages[@]} > 0))
+          MAKEFLAGS="-j$(nproc)" ../bin/BuildPackages.sh --strict "${packages[@]}"
+
+      - name: "Capture startup output and update the installation page"
+        env:
+          LC_ALL: C.UTF-8
+        run: |
+          "$GAPROOT/gap" -r -l "$GAPROOT" --quitonbreak -c 'quit;' \
+            > "$RUNNER_TEMP/gap-startup.txt"
+
+          {
+            printf '```\n'
+            sed 's/\r//g; s/[[:blank:]]*$//' "$RUNNER_TEMP/gap-startup.txt"
+            printf 'gap>\n```\n'
+          } > "$RUNNER_TEMP/gap-example.md"
+
+          start='^<!-- BEGIN GAP STARTUP EXAMPLE -->$'
+          end='^<!-- END GAP STARTUP EXAMPLE -->$'
+          sed -n "/$start/,/$end/p" install/index.md | grep -q "$end"
+          sed -Ei "/$start/,/$end/{
+            /$start/r $RUNNER_TEMP/gap-example.md
+            /$start|$end/!d
+          }" install/index.md
+
+      - name: "Create a pull request"
+        uses: peter-evans/create-pull-request@v8
+        with:
+          base: master
+          branch: auto/update-gap-startup
+          add-paths: install/index.md
+          commit-message: Update GAP startup example for ${{ steps.release.outputs.version }}
+          title: Update GAP startup example for ${{ steps.release.outputs.version }}
+          body: |
+            Capture the startup output of GAP ${{ steps.release.outputs.version }} on `ubuntu-latest`.
+
+            Built the release using `setup-gap` and its bundled packages using
+            `BuildPackages.sh`.
+
+            Excluded packages: `${{ env.GAP_PACKAGES_TO_SKIP }}`.
