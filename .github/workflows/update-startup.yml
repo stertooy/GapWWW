@@ -57,15 +57,6 @@ jobs:
           ((${#packages[@]} > 0))
           MAKEFLAGS="-j$(nproc)" ../bin/BuildPackages.sh --strict "${packages[@]}"
 
-      - name: "Show package build failure log"
-        if: ${{ !cancelled() }}
-        run: |
-          if [[ -f "$GAPROOT/pkg/log/fail.log" ]]; then
-            echo "::group::Package build failure log"
-            cat "$GAPROOT/pkg/log/fail.log"
-            echo "::endgroup::"
-          fi
-
       - name: "Capture startup output and update the installation page"
         env:
           LC_ALL: C.UTF-8
