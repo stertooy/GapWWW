@@ -21,8 +21,6 @@ jobs:
         zeromqinterface
     steps:
       - uses: actions/checkout@v7
-        with:
-          ref: master
 
       - name: "Read the latest GAP release"
         id: release
@@ -59,6 +57,15 @@ jobs:
           ((${#packages[@]} > 0))
           MAKEFLAGS="-j$(nproc)" ../bin/BuildPackages.sh --strict "${packages[@]}"
 
+      - name: "Show package build failure log"
+        if: ${{ !cancelled() }}
+        run: |
+          if [[ -f "$GAPROOT/pkg/log/fail.log" ]]; then
+            echo "::group::Package build failure log"
+            cat "$GAPROOT/pkg/log/fail.log"
+            echo "::endgroup::"
+          fi
+
       - name: "Capture startup output and update the installation page"
         env:
           LC_ALL: C.UTF-8
@@ -74,7 +81,10 @@ jobs:
 
           start='^<!-- BEGIN GAP STARTUP EXAMPLE -->$'
           end='^<!-- END GAP STARTUP EXAMPLE -->$'
-          sed -n "/$start/,/$end/p" install/index.md | grep -q "$end"
+          if ! sed -n "/$start/,/$end/p" install/index.md | grep -q "$end"; then
+            echo "Missing GAP startup example markers in install/index.md" >&2
+            exit 1
+          fi
           sed -Ei "/$start/,/$end/{
             /$start/r $RUNNER_TEMP/gap-example.md
             /$start|$end/!d
@@ -83,7 +93,6 @@ jobs:
       - name: "Create a pull request"
         uses: peter-evans/create-pull-request@v8
         with:
-          base: master
           branch: auto/update-gap-startup
           add-paths: install/index.md
           commit-message: Update GAP startup example for ${{ steps.release.outputs.version }}
