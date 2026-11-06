@@ -7,8 +7,8 @@ nav_order: 14
 permalink: /capabilities/datalib
 ---
 
-GAP contains several data libraries. Some of these are parts of the core GAP
-system, while some others are accessible through GAP packages.
+GAP contains several data libraries. Some of these are part of the core GAP
+system, while others are accessible through GAP packages.
 
 ## Data libraries in core GAP
 
