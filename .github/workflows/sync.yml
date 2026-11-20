@@ -9,7 +9,7 @@ on:
 jobs:
   sync:
     name: "Get new GitHub release data"
-    if: ${{ github.repository == 'gap-system/GapWWW' }}
+    #if: ${{ github.repository == 'gap-system/GapWWW' }}
     runs-on: ubuntu-latest
     env:
       # skip packages that either build slowly, or are guaranteed to fail
