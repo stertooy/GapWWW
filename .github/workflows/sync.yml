@@ -36,10 +36,10 @@ jobs:
       - name: "Determine latest GAP version"
         id: release
         run: |
-          gap_url=$(jq -er '.[] | select(.isLatest == true) | .url' releases.json)
-          gap_sha=$(jq -er '.[] | select(.isLatest == true) | .sha256' releases.json)
-          echo "gap_url=$gap_url" >> "$GITHUB_OUTPUT"
-          echo "gap_sha=$gap_sha" >> "$GITHUB_OUTPUT"
+          gap-url=$(jq -er '.[] | select(.isLatest == true) | .url' releases.json)
+          gap-sha=$(jq -er '.[] | select(.isLatest == true) | .sha256' releases.json)
+          echo "gap-url=$gap-url" >> "$GITHUB_OUTPUT"
+          echo "gap-sha=$gap-sha" >> "$GITHUB_OUTPUT"
           if ! sed -n '/^<!-- BEGIN GAP STARTUP EXAMPLE -->$/,/^<!-- END GAP STARTUP EXAMPLE -->$/p' install/index.md |
               grep -Fq "GAP ${version#v} of "; then
             echo "update=true" >> "$GITHUB_OUTPUT"
