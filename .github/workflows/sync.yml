@@ -65,7 +65,6 @@ jobs:
             libcurl4-openssl-dev                          \
             libncurses-dev                                \
             libtool                                       \
-            pari-gp                                       \
             pkg-config
 
       - name: "Build packages"
