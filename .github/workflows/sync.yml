@@ -36,10 +36,10 @@ jobs:
       - name: "Determine latest GAP version"
         id: release
         run: |
-          gap-url=$(jq -er '.[] | select(.isLatest == true) | .url' releases.json)
-          gap-sha=$(jq -er '.[] | select(.isLatest == true) | .sha256' releases.json)
-          echo "gap-url=$gap-url" >> "$GITHUB_OUTPUT"
-          echo "gap-sha=$gap-sha" >> "$GITHUB_OUTPUT"
+          gap_url=$(jq -er '.[] | select(.isLatest == true) | .url' releases.json)
+          gap_sha=$(jq -er '.[] | select(.isLatest == true) | .sha256' releases.json)
+          echo "gap_url=$gap_url" >> "$GITHUB_OUTPUT"
+          echo "gap_sha=$gap_sha" >> "$GITHUB_OUTPUT"
           if ! sed -n '/^<!-- BEGIN GAP STARTUP EXAMPLE -->$/,/^<!-- END GAP STARTUP EXAMPLE -->$/p' install/index.md |
               grep -Fq "GAP ${version#v} of "; then
             echo "update=true" >> "$GITHUB_OUTPUT"
@@ -52,8 +52,8 @@ jobs:
           # don't use gap-version input, since that depends on releases.json
           # having been updated on the LIVE website already
           custom-archive: >-
-            ${{ steps.release.outputs.gap-url }}
-            ${{ steps.release.outputs.gap-sha }}
+            ${{ steps.release.outputs.gap_url }}
+            ${{ steps.release.outputs.gap_sha }}
 
       - name: "Install package dependencies"
         if: steps.release.outputs.update == 'true'
