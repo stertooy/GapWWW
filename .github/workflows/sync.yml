@@ -35,9 +35,12 @@ jobs:
 
       - name: "Determine latest GAP version"
         id: release
+        continue-on-error: true
         run: |
-          version=$(jq -er '.[] | select(.isLatest == true) | .tagName' releases.json)
-          echo "version=$version" >> "$GITHUB_OUTPUT"
+          gap_url=$(jq -er '.[] | select(.isLatest == true) | .url' releases.json)
+          gap_sha=$(jq -er '.[] | select(.isLatest == true) | .sha256' releases.json)
+          echo "gap_url=$gap_url" >> "$GITHUB_OUTPUT"
+          echo "gap_sha=$gap_sha" >> "$GITHUB_OUTPUT"
           if ! sed -n '/^<!-- BEGIN GAP STARTUP EXAMPLE -->$/,/^<!-- END GAP STARTUP EXAMPLE -->$/p' install/index.md |
               grep -Fq "GAP ${version#v} of "; then
             echo "update=true" >> "$GITHUB_OUTPUT"
@@ -48,7 +51,11 @@ jobs:
         continue-on-error: true
         uses: gap-actions/setup-gap@v3
         with:
-          gap-version: ${{ steps.release.outputs.version }}
+          # don't use gap-version input, since that depends on releases.json
+          # having been updated on the LIVE website already
+          custom-archive: >-
+            ${{ steps.release.outputs.gap_url }}
+            ${{ steps.release.outputs.gap_sha }}
 
       - name: "Install package dependencies"
         if: steps.release.outputs.update == 'true'
@@ -57,8 +64,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends \
             libcurl4-openssl-dev                          \
-            libncurses-dev                                \
-            pkg-config
+            libncurses-dev
 
       - name: "Build packages"
         if: steps.release.outputs.update == 'true'
