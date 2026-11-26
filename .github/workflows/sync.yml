@@ -83,9 +83,6 @@ jobs:
             packages+=("$package")
           done
           MAKEFLAGS="-j$(nproc)" ../bin/BuildPackages.sh "${packages[@]}"
-          echo "::group::Package log:"
-          cat log/fail.log
-          echo "::endgroup::"
 
       - name: "Get startup output and update installation page"
         if: steps.release.outputs.update == 'true'
