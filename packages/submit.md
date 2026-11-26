@@ -19,9 +19,7 @@ packages not distributed with GAP under
 
 ### How to submit
 
-Send an email to <gap@gap-system.org>, or
-[open an issue](https://github.com/gap-system/PackageDistro/issues/new?template=new-package.yml)
-in the PackageDistro repository, giving:
+Send an email to <gap@gap-system.org> giving:
 
 - the package name and a short description of what it does;
 - the URL of its `PackageInfo.g` file;
